@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <div class="main">
+   
+      <div class="form px-4 py-10">
+        <form action="/create" method="post">
+          <input
+            class="block w-full px-3 py-2 rounded-md outline-none"
+            type="text"
+            placeholder="Task Name"
+            name="name"
+          />
+          <textarea
+            class="block  px-3 py-4 mt-2 w-full rounded-md outline-none resize-none"
+            placeholder="Write something about text"
+            name="details"
+          ></textarea>
+          <input
+            class="px-8 font-medium py-3 text-md mt-5 bg-blue-600 rounded-lg"
+            type="submit" value="submit"
+          />
+        </form>
+      </div>
+      <div class="tasks flex gap-4 flex-wrap px-4 py-20">
+        <% if(files.length > 0){ %> 
+          <% files.forEach(function(file){ %>
+        <div class="task w-72 p-3 bg-violet-700 rounded-lg">
+          <h3 class="text-3xl tracking-tighter mb-3"><%= file.name %></h3>
+          <p>
+            <% if(file.data.length > 15){ %> 
+              <%= file.data.substring(0,16)+'...' %> 
+            <%} else {%>
+               <%= file.data %> 
+               <%} %>
+          </p>
+          <div class=" flex w-full justify-between items-center mt-5">
+          <a href="/read/<%= file.name %>" class="text-blue-400  inline-block">Read More</a>
+          <a href="/edit/<%= file.name %> " class="ml-10 ">edit</a>
+          <div class="">
+          <a href="/delete/<%= file.name %>" class="text-red-500 ">Delete</a>
+        </div>
+        </div>
+        </div>
+        <% }) %> <% } else{ %>
+        <h3 class="px-8 py-2 rounded-md bg-violet-300 text-3xl text-black">No task yet.</h3>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
